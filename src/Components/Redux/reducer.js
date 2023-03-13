@@ -27,12 +27,16 @@ const userReducer = (state = initialState, action) => {
     case types.UPDATE_SUCCESS_DATA:
       return {
         ...state,
+        isFilter: false,
         loading: false,
       };
     case types.DEL_SUCCESS_DATA:
       return {
         ...state,
         loading: false,
+        filterUser: state.filterUser.filter(
+          (users) => users._id !== action.payload
+        ),
         users: state.users.filter((users) => users._id !== action.payload),
       };
     case types.CREATE_ERORR_DATA:

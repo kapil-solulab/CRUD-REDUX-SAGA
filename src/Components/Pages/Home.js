@@ -10,6 +10,7 @@ const Home = () => {
   const { users } = useSelector((state) => state.data);
   const { isFilter } = useSelector((state) => state.data);
   const { filterUser } = useSelector((state) => state.data);
+  const { loading } = useSelector((state) => state.data);
   console.log("Allusers", users);
 
   useEffect(() => {
@@ -41,61 +42,82 @@ const Home = () => {
             </tr>
           </thead>
           <tbody>
-            {!isFilter
-              ? users.map((items, index) => (
-                  <tr key={items._id}>
-                    <th scope="row">{index + 1}</th>
-                    <td>{items.FullName}</td>
-                    <td>{items.Dob}</td>
-                    <td>{items.Gender}</td>
-                    <td>{items.BioData}</td>
-                    <td>
-                      <button
-                        onClick={() => handleEdit(items)}
-                        class="btn btn-outline-success py-0"
-                        type="button"
-                      >
-                        Edit
-                      </button>
-                    </td>
-                    <td>
-                      <button
-                        class="btn btn-outline-danger py-0"
-                        onClick={() => handleDelete(items)}
-                        type="button"
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))
-              : filterUser.map((items, index) => (
-                  <tr key={items._id}>
-                    <th scope="row">{index + 1}</th>
-                    <td>{items.FullName}</td>
-                    <td>{items.Dob}</td>
-                    <td>{items.Gender}</td>
-                    <td>{items.BioData}</td>
-                    <td>
-                      <button
-                        onClick={() => handleEdit(items)}
-                        class="btn btn-outline-success py-0"
-                        type="button"
-                      >
-                        Edit
-                      </button>
-                    </td>
-                    <td>
-                      <button
-                        class="btn btn-outline-danger py-0"
-                        onClick={() => handleDelete(items)}
-                        type="button"
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+            {
+              loading ? (
+                <tr>
+                  <td className="text-center " scope="col" colspan="12">
+                    <div class="spinner-border text-light text-center" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+
+                  </td>
+                </tr>
+
+              ) :
+                <>
+                  {!isFilter
+                    ? users.map((items, index) => (
+                      <tr key={items._id}>
+                        <th scope="row">{index + 1}</th>
+                        <td>{items.FullName}</td>
+                        <td>{items.Dob}</td>
+                        <td>{items.Gender}</td>
+                        <td>{items.BioData}</td>
+                        <td>
+                          <button
+                            onClick={() => handleEdit(items)}
+                            class="btn btn-outline-success py-0"
+                            type="button"
+                          >
+                            Edit
+                          </button>
+                        </td>
+                        <td>
+                          <button
+                            class="btn btn-outline-danger py-0"
+                            onClick={() => handleDelete(items)}
+                            type="button"
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                    : filterUser.map((items, index) => (
+                      <tr key={items._id}>
+                        <th scope="row">{index + 1}</th>
+                        <td>{items.FullName}</td>
+                        <td>{items.Dob}</td>
+                        <td>{items.Gender}</td>
+                        <td>{items.BioData}</td>
+                        <td>
+                          <button
+                            onClick={() => handleEdit(items)}
+                            class="btn btn-outline-success py-0"
+                            type="button"
+                          >
+                            Edit
+                          </button>
+                        </td>
+                        <td>
+                          <button
+                            class="btn btn-outline-danger py-0"
+                            onClick={() => handleDelete(items)}
+                            type="button"
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+
+
+
+
+                </>
+
+            }
+
           </tbody>
         </table>
       </div>
